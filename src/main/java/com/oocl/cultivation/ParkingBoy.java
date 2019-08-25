@@ -1,5 +1,6 @@
 package com.oocl.cultivation;
 
+
 public class ParkingBoy {
 
     private final ParkingLot parkingLot;
@@ -9,14 +10,32 @@ public class ParkingBoy {
         this.parkingLot = parkingLot;
     }
 
+    //Í£³µÈ¡Æ±
     public ParkingTicket park(Car car) {
         // TODO: Please implement the method
-        throw new RuntimeException("Not implemented");
+    	if(this.parkingLot.getAvailableParkingPosition() < 1) {
+    		lastErrorMessage = "The parking lot is full.";
+    		return null;
+    	}
+    	ParkingTicket parkingTicket = parkingLot.park(car);
+    	if(parkingTicket != null) {
+    		lastErrorMessage = null;
+    	}
+    	return parkingTicket;
     }
 
     public Car fetch(ParkingTicket ticket) {
         // TODO: Please implement the method
-        throw new RuntimeException("Not implemented");
+    	if(ticket == null) {
+    		lastErrorMessage = "Please provide your parking ticket.";
+    		return null;
+    	}
+    	
+    	Car car = parkingLot.fetch(ticket);
+    	if(car == null) {
+    		lastErrorMessage = "Unrecognized parking ticket.";
+    	}
+    	return car;
     }
 
     public String getLastErrorMessage() {
