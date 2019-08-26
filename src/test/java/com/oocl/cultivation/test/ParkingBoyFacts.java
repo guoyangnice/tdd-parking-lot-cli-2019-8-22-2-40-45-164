@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class ParkingBoyFacts {
     @Test
     void should_park_a_car_to_a_parking_lot_and_get_it_back() {
@@ -150,5 +153,22 @@ class ParkingBoyFacts {
         parkingBoy.park(new Car());
 
         assertEquals("The parking lot is full.", parkingBoy.getLastErrorMessage());
+    }
+    
+    @Test
+    void should_parking_another_parkinglot_when_last_parkinglot_is_full_given_a_car_will_park() {
+    	//given
+    	List<ParkingLot> parkingLots = new ArrayList<ParkingLot>();
+    	parkingLots.add(new ParkingLot(0));
+    	parkingLots.add(new ParkingLot(2));
+    	ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+    	Car car = new Car();
+    	
+    	//when
+    	ParkingTicket parkingTicket = parkingBoy.park(car);
+    	
+    	//then
+    	assertNotNull(parkingTicket);
+    	assertEquals(1,parkingLots.get(1).getAvailableParkingPosition());
     }
 }
